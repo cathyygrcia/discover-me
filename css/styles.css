@@ -14,18 +14,20 @@ html {
 }
 
 .nav-heart {
-  margin-right: 2rem;
+  margin-right: 3.5rem;
+  font-size: 3.5rem;
+  color: white;
 }
 
 .header-text {
   color: white;
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-left: 2rem;
 }
 
-.far {
+.favorites-text {
   color: white;
-  font-size: 2.5rem;
+  display: none;
 }
 
 .container {
@@ -57,14 +59,16 @@ html {
   border-radius: 2rem;
   border-color: rgb(217, 217, 217, 0.5);
   background-color: rgb(217, 217, 217, 0.5);
-  padding: 0.5rem;
+  padding: 1rem;
   color: white;
-  width: 50%;
+  width: 60%;
   margin-top: 2rem;
+  outline: none;
 }
 
 input::placeholder {
   color: white;
+  font-size: 2rem;
 }
 
 .button-style {
@@ -75,6 +79,7 @@ input::placeholder {
   margin-right: 1rem;
   margin-top: 3rem;
   margin-bottom: 1rem;
+  padding: 1rem;
 }
 
 .artist.green {
@@ -94,12 +99,6 @@ input::placeholder {
   margin-top: 2rem;
 }
 
-p {
-  font-size: 1.2rem;
-  color: white;
-  margin-top: 0;
-}
-
 .title-row {
   display: flex;
   justify-content: flex-end;
@@ -112,6 +111,51 @@ p {
   flex-basis: calc(100%/3);
 }
 
-.title {
+.images-column-full > p {
+  color: white;
   margin-bottom: 0;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.title-column-half > p {
+  color: white;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.title-column-half > i {
+  color: white;
+  font-size: 3rem;
+  padding-left: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .input {
+    width: 35%;
+  }
+
+  .nav-heart {
+    margin-left: 4rem;
+  }
+
+  .header-text {
+    color: white;
+    font-size: 5rem;
+    margin-left: 7rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .favorites-text {
+    display: contents;
+    font-size: 3.5rem;
+    padding-right: 0;
+  }
+
+  .button-style {
+    padding: 1rem;
+    font-size: 2.5rem;
+  }
 }
