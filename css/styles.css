@@ -26,13 +26,14 @@ html {
 }
 
 .container {
-  min-height: 100vh;
+  min-height: 200vh;
   background-image: url("/images/crowd.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   position: relative;
+  z-index: 2;
 }
 
 .overlay {
@@ -43,7 +44,8 @@ html {
   height: 100%;
   background-color: rgba(11, 11, 11, 0.5);
   pointer-events: none;
-  z-index: 1;
+
+  /* z-index: 1; */
 }
 
 .hidden {
@@ -74,7 +76,7 @@ input::placeholder {
   color: white;
   margin-right: 1rem;
   margin-top: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
 }
 
 .artist.green {
@@ -85,4 +87,16 @@ input::placeholder {
 .genre.green {
   background-color: rgb(13, 34, 37, 0.6);
   color: white;
+}
+
+.image {
+  width: 75%;
+  border-radius: 2rem;
+}
+
+p {
+  font-size: 1.3rem;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 0;
 }
