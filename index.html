@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Project</title>
+  <title>Discover Me</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Reggae+One&family=Tektur&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <header>
+    <div class="nav-container">
+      <nav class="nav-row">
+        <div class="column-half">
+          <h1 class="header-text">Discover Me</h1>
+        </div>
+        <div class="column-half">
+          <i class="fas fa-heart"></i>
+        </div>
+      </nav>
+    </div>
   </header>
-  <main>
+  <main class="container">
+    <div class="overlay">
+      <div data-view="home">
+        <div class="row">
+          <div class="column-full search ">
+            <input type="search" placeholder="Search" class="input">
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-full button">
+            <button type="button" class="artist button-style">Search by Artist</button>
+            <button type="button" class="genre button-style">Search by Genre</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
