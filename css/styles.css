@@ -13,47 +13,44 @@ html {
   z-index: 2;
 }
 
+.nav-heart {
+  margin-right: 2rem;
+}
+
 .header-text {
   color: white;
   font-size: 2.5rem;
   margin-left: 2rem;
 }
 
-.fas {
+.far {
   color: white;
   font-size: 2.5rem;
-  margin-right: 2.5rem;
 }
 
 .container {
-  min-height: 200vh;
+  min-height: 100vh;
   background-image: url("/images/crowd.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
   position: relative;
-  z-index: 2;
 }
 
 .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(11, 11, 11, 0.5);
   pointer-events: none;
-
-  /* z-index: 1; */
+  z-index: -1;
 }
 
 .hidden {
   display: none;
-}
-
-.search {
-  margin-top: 1.5rem;
 }
 
 .input {
@@ -63,6 +60,7 @@ html {
   padding: 0.5rem;
   color: white;
   width: 50%;
+  margin-top: 2rem;
 }
 
 input::placeholder {
@@ -76,7 +74,7 @@ input::placeholder {
   color: white;
   margin-right: 1rem;
   margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .artist.green {
@@ -91,12 +89,29 @@ input::placeholder {
 
 .image {
   width: 75%;
-  border-radius: 2rem;
+  border-radius: 3rem;
+  margin-bottom: 0.7rem;
+  margin-top: 2rem;
 }
 
 p {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: white;
   margin-top: 0;
+}
+
+.title-row {
+  display: flex;
+  justify-content: flex-end;
+  width: 75%;
+}
+
+.title-column-half {
+  display: flex;
+  justify-content: center;
+  flex-basis: calc(100%/3);
+}
+
+.title {
   margin-bottom: 0;
 }
