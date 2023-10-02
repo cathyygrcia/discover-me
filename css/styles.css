@@ -38,6 +38,7 @@ html {
   background-position: center;
   background-size: cover;
   position: relative;
+  z-index: 1;
 }
 
 .overlay {
@@ -93,22 +94,30 @@ input::placeholder {
 }
 
 .image {
-  width: 75%;
+  width: 80%;
   border-radius: 3rem;
   margin-bottom: 0.7rem;
   margin-top: 2rem;
 }
 
+.title {
+  text-align: center;
+}
+
 .title-row {
   display: flex;
   justify-content: flex-end;
-  width: 75%;
+  width: 100%;
 }
 
 .title-column-half {
   display: flex;
   justify-content: center;
   flex-basis: calc(100%/3);
+}
+
+.icon-column-half {
+  display: flex;
 }
 
 .images-column-full > p {
@@ -123,6 +132,7 @@ input::placeholder {
   margin-bottom: 0;
   margin-top: 0;
   font-size: 1.5rem;
+  text-align: center;
 }
 
 .title-column-half > i {
