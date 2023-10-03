@@ -78,7 +78,6 @@ function getContent(DMA) {
   xhr.addEventListener('load', function () {
     renderContent(xhr.response._embedded.events);
   });
-  // xhr.addEventListener('load', renderContent);
   xhr.send();
 }
 
@@ -97,7 +96,6 @@ $genreButton.addEventListener('click', function (event) {
       xhr.addEventListener('load', function () {
         renderContent(xhr.response._embedded.events);
       });
-      // xhr.addEventListener('load', renderContent);
       xhr.send();
     }
 
