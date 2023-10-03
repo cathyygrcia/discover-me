@@ -3,11 +3,9 @@ const $genreButton = document.querySelector('.genre');
 const $artistButton = document.querySelector('.artist');
 const $search = document.querySelector('.search');
 
-const xhr = new XMLHttpRequest();
+function renderContent(response) {
 
-function renderContent() {
   $contentRow.textContent = '';
-  const response = xhr.response._embedded.events;
   for (let i = 0; i < response.length; i++) {
 
     const $imagesColumnFull = document.createElement('div');
@@ -46,6 +44,7 @@ function renderContent() {
       if (currentImage.ratio === '4_3') {
         $image.src = currentImage.url;
         $image.setAttribute('class', 'image');
+        $image.setAttribute('alt', 'artist-image');
       }
     }
     $contentRow.appendChild($imagesColumnFull);
@@ -73,9 +72,13 @@ function formatDate(inputDate) {
 }
 
 function getContent(DMA) {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=${DMA}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', renderContent);
+  xhr.addEventListener('load', function () {
+    renderContent(xhr.response._embedded.events);
+  });
+  // xhr.addEventListener('load', renderContent);
   xhr.send();
 }
 
@@ -88,9 +91,13 @@ $genreButton.addEventListener('click', function (event) {
     if (event.key === 'Enter') {
 
       const searchValue = event.target.value;
+      const xhr = new XMLHttpRequest();
       xhr.open('GET', `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=${searchValue}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`);
       xhr.responseType = 'json';
-      xhr.addEventListener('load', renderContent);
+      xhr.addEventListener('load', function () {
+        renderContent(xhr.response._embedded.events);
+      });
+      // xhr.addEventListener('load', renderContent);
       xhr.send();
     }
 
@@ -142,6 +149,7 @@ $artistButton.addEventListener('click', function (event) {
             if (currentImage.ratio === '4_3') {
               $image.src = currentImage.url;
               $image.setAttribute('class', 'image');
+              $image.setAttribute('alt', 'artist-image');
             }
           }
           $contentRow.appendChild($imagesColumnFull);
