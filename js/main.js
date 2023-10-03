@@ -9,6 +9,7 @@ function renderContent() {
   $contentRow.textContent = '';
   const response = xhr.response._embedded.events;
   for (let i = 0; i < response.length; i++) {
+
     const $imagesColumnFull = document.createElement('div');
     $imagesColumnFull.setAttribute('class', 'images-column-full');
 
@@ -92,6 +93,7 @@ $genreButton.addEventListener('click', function (event) {
       xhr.addEventListener('load', renderContent);
       xhr.send();
     }
+
   });
 });
 
