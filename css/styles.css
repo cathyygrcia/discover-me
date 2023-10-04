@@ -25,6 +25,10 @@ html {
   margin-left: 2rem;
 }
 
+.hide-text {
+  display: none;
+}
+
 .favorites-text {
   color: white;
   display: none;
