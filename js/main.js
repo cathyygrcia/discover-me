@@ -2,6 +2,10 @@ const $contentRow = document.querySelector('.content-row');
 const $genreButton = document.querySelector('.genre');
 const $artistButton = document.querySelector('.artist');
 const $search = document.querySelector('.search');
+const $homePage = document.querySelector('[data-view = "home"]');
+const $artistInfo = document.querySelector('[data-view = "artist-info"]');
+const $artistInfoText = document.querySelector('.artist-info-text');
+const $discoverMeText = document.querySelector('.discover-me-text');
 
 function renderContent(response) {
 
@@ -187,3 +191,24 @@ const dmaArray = [
 const randomIndex = Math.floor(Math.random() * dmaArray.length);
 const randomDMA = dmaArray[randomIndex];
 getContent(randomDMA);
+
+function viewSwap(view) {
+  if (view === 'artist-info') {
+    $homePage.classList.add('hidden');
+    $artistInfo.classList.remove('hidden');
+    $artistInfoText.classList.remove('hide-text');
+    $discoverMeText.classList.add('hide-text');
+  } else {
+    $homePage.classList.remove('hidden');
+    $artistInfo.classList.add('hidden');
+
+  }
+}
+
+$contentRow.addEventListener('click', function (event) {
+
+  if (event.target.className === 'title' || event.target.tagName === 'IMG') {
+    viewSwap('artist-info');
+
+  }
+});
