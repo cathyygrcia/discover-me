@@ -7,6 +7,7 @@ const $artistInfo = document.querySelector('[data-view = "artist-info"]');
 const $artistNameRow = document.querySelector('.artist-name-row');
 const $artistInfoText = document.querySelector('.artist-info-text');
 const $discoverMeText = document.querySelector('.discover-me-text');
+const $searchIcon = document.querySelector('.search-icon');
 
 function renderContent(response) {
   $contentRow.textContent = '';
@@ -209,16 +210,27 @@ function viewSwap(view) {
   if (view === 'artist-info') {
     $homePage.classList.add('hidden');
     $artistInfo.classList.remove('hidden');
-    $artistInfoText.classList.remove('hide-text');
+    $artistInfoText.classList.remove('hidden');
     $discoverMeText.classList.add('hide-text');
+    $searchIcon.classList.remove('hidden');
+
   } else {
     $homePage.classList.remove('hidden');
     $artistInfo.classList.add('hidden');
+    $artistInfoText.classList.add('hidden');
+    $discoverMeText.classList.remove('hide-text');
+    $searchIcon.classList.add('hidden');
   }
 }
 
+$searchIcon.addEventListener('click', function (event) {
+  viewSwap('home');
+
+});
+
 $contentRow.addEventListener('click', function (event) {
   if (event.target.className === 'title' || event.target.tagName === 'IMG') {
+
     viewSwap('artist-info');
     const closestId = event.target.closest('.images-column-full').getAttribute('data-artist-id');
 
@@ -230,7 +242,8 @@ $contentRow.addEventListener('click', function (event) {
     );
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
-
+      $artistNameRow.textContent = '';
+      $artistInfoText.classList.remove('hide-text');
       const $artistName = document.createElement('h1');
       $artistName.textContent = xhr.response.name;
       $artistName.setAttribute('class', 'artist-name');
@@ -263,6 +276,7 @@ $contentRow.addEventListener('click', function (event) {
         'href',
         xhr.response.externalLinks.instagram[0].url
       );
+      $instaLink.setAttribute('target', '_blank');
 
       const $spotifyLink = document.createElement('a');
       $spotifyLink.textContent = 'Spotify';
@@ -271,6 +285,7 @@ $contentRow.addEventListener('click', function (event) {
         'href',
         xhr.response.externalLinks.spotify[0].url
       );
+      $spotifyLink.setAttribute('target', '_blank');
 
       const $youtubeLink = document.createElement('a');
       $youtubeLink.textContent = 'Youtube';
@@ -279,6 +294,7 @@ $contentRow.addEventListener('click', function (event) {
         'href',
         xhr.response.externalLinks.youtube[0].url
       );
+      $youtubeLink.setAttribute('target', '_blank');
 
       const $eventsLink = document.createElement('a');
       $eventsLink.textContent = 'Events';
@@ -287,6 +303,7 @@ $contentRow.addEventListener('click', function (event) {
         'href',
         xhr.response.url
       );
+      $eventsLink.setAttribute('target', '_blank');
 
       for (let j = 0; j < xhr.response.images.length; j++) {
         const currentImage = xhr.response.images[j];

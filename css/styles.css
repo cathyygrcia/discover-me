@@ -177,9 +177,10 @@ input::placeholder {
   padding-left: 2rem;
 }
 
-.fa-magnifying-glass {
+.fa-search {
   font-size: 3rem;
   color: white;
+  padding-left: 1rem;
 }
 
 @media screen and (min-width: 768px) {
@@ -194,7 +195,8 @@ input::placeholder {
   .header-text {
     color: white;
     font-size: 5rem;
-    margin-left: 7rem;
+
+    /* margin-left: 2rem; */
     margin-top: 1rem;
     margin-bottom: 1rem;
   }

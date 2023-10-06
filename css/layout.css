@@ -39,7 +39,6 @@
 .test-row {
   display: flex;
   justify-content: center;
-  margin-top: 5rem;
 }
 
 .another-row {
@@ -81,6 +80,10 @@
 
   .nav-row {
     justify-content: space-between;
+  }
+
+  .column-half {
+    margin-left: 4rem;
   }
 
   .image-wrapper {
