@@ -4,16 +4,17 @@ const $artistButton = document.querySelector('.artist');
 const $search = document.querySelector('.search');
 const $homePage = document.querySelector('[data-view = "home"]');
 const $artistInfo = document.querySelector('[data-view = "artist-info"]');
+const $aristNameRow = document.querySelector('.artist-name-row');
 const $artistInfoText = document.querySelector('.artist-info-text');
 const $discoverMeText = document.querySelector('.discover-me-text');
 
 function renderContent(response) {
-
   $contentRow.textContent = '';
   for (let i = 0; i < response.length; i++) {
-
     const $imagesColumnFull = document.createElement('div');
     $imagesColumnFull.setAttribute('class', 'images-column-full');
+    const id = response[i]._embedded.attractions[0].id;
+    $imagesColumnFull.setAttribute('data-artist-id', id);
 
     const $imageWrapper = document.createElement('div');
     $imageWrapper.setAttribute('class', 'image-wrapper');
@@ -77,10 +78,15 @@ function formatDate(inputDate) {
 
 function getContent(DMA) {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=${DMA}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`);
+  xhr.open(
+    'GET',
+    `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&dmaId=${DMA}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`
+  );
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
+
     renderContent(xhr.response._embedded.events);
+
   });
   xhr.send();
 }
@@ -92,17 +98,19 @@ $genreButton.addEventListener('click', function (event) {
   $search.addEventListener('keydown', function (event) {
 
     if (event.key === 'Enter') {
-
       const searchValue = event.target.value;
       const xhr = new XMLHttpRequest();
-      xhr.open('GET', `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=${searchValue}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`);
+      xhr.open(
+        'GET',
+        `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=${searchValue}&size=30&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`
+      );
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
+
         renderContent(xhr.response._embedded.events);
       });
       xhr.send();
     }
-
   });
 });
 
@@ -111,19 +119,25 @@ $artistButton.addEventListener('click', function (event) {
   $genreButton.classList.remove('green');
   $artistButton.classList.add('green');
   $search.addEventListener('keydown', function (event) {
-
     if (event.key === 'Enter') {
       const xhr = new XMLHttpRequest();
       const searchValue = event.target.value;
-      xhr.open('GET', `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${searchValue}&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`);
+      xhr.open(
+        'GET',
+        `https://app.ticketmaster.com/discovery/v2/attractions.json?keyword=${searchValue}&apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`
+      );
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
         const response = xhr.response._embedded.attractions;
+
         $contentRow.textContent = '';
 
         for (let i = 0; i < response.length; i++) {
           const $imagesColumnFull = document.createElement('div');
           $imagesColumnFull.setAttribute('class', 'images-column-full');
+
+          const id = response[i].id;
+          $imagesColumnFull.setAttribute('data-artist-id', id);
 
           const $imageWrapper = document.createElement('div');
           $imageWrapper.setAttribute('class', 'image-wrapper');
@@ -185,7 +199,6 @@ const dmaArray = [
   '382',
   '383',
   '385'
-
 ];
 
 const randomIndex = Math.floor(Math.random() * dmaArray.length);
@@ -201,14 +214,93 @@ function viewSwap(view) {
   } else {
     $homePage.classList.remove('hidden');
     $artistInfo.classList.add('hidden');
-
   }
 }
 
 $contentRow.addEventListener('click', function (event) {
-
   if (event.target.className === 'title' || event.target.tagName === 'IMG') {
     viewSwap('artist-info');
+    const closestId = event.target.closest('.images-column-full').getAttribute('data-artist-id');
 
+    const xhr = new XMLHttpRequest();
+
+    xhr.open(
+      'GET',
+      `https://app.ticketmaster.com/discovery/v2/attractions/${closestId}.json?apikey=aeMvG0zyzdpO1jAkGyCZeGxxQK4vIfpe`
+    );
+    xhr.responseType = 'json';
+    xhr.addEventListener('load', function () {
+
+      const $artistName = document.createElement('h1');
+      $artistName.textContent = xhr.response.name;
+      $artistName.setAttribute('class', 'artist-name');
+
+      const $testRow = document.createElement('div');
+      $testRow.setAttribute('class', 'test-row');
+
+      const $socialImageWrapper = document.createElement('div');
+      $socialImageWrapper.setAttribute('class', 'socials-image-wrapper');
+
+      const $image = document.createElement('img');
+
+      const $genreName = document.createElement('h1');
+      $genreName.textContent = 'Genre: ' + xhr.response.classifications[0].genre.name;
+      $genreName.setAttribute('class', 'genre-name');
+
+      const $socialsContainer = document.createElement('div');
+      $socialsContainer.setAttribute('class', 'socials-container');
+
+      const $instaLink = document.createElement('a');
+      $instaLink.textContent = 'Instagram';
+      $instaLink.setAttribute('class', 'socials-link-styling');
+      $instaLink.setAttribute(
+        'href',
+        xhr.response.externalLinks.instagram[0].url
+      );
+
+      const $spotifyLink = document.createElement('a');
+      $spotifyLink.textContent = 'Spotify';
+      $spotifyLink.setAttribute('class', 'socials-link-styling');
+      $spotifyLink.setAttribute(
+        'href',
+        xhr.response.externalLinks.spotify[0].url
+      );
+
+      const $youtubeLink = document.createElement('a');
+      $youtubeLink.textContent = 'Youtube';
+      $youtubeLink.setAttribute('class', 'socials-link-styling');
+      $youtubeLink.setAttribute(
+        'href',
+        xhr.response.externalLinks.youtube[0].url
+      );
+
+      const $eventsLink = document.createElement('a');
+      $eventsLink.textContent = 'Events';
+      $eventsLink.setAttribute('class', 'socials-link-styling');
+      $eventsLink.setAttribute(
+        'href',
+        xhr.response.url
+      );
+
+      for (let j = 0; j < xhr.response.images.length; j++) {
+        const currentImage = xhr.response.images[j];
+        if (currentImage.ratio === '4_3') {
+          $image.src = currentImage.url;
+          $image.setAttribute('class', 'image');
+          $image.setAttribute('alt', 'artist-image');
+        }
+      }
+
+      $aristNameRow.appendChild($testRow);
+      $socialImageWrapper.appendChild($artistName);
+      $testRow.appendChild($socialImageWrapper);
+      $socialImageWrapper.appendChild($image);
+      $socialImageWrapper.appendChild($genreName);
+      $socialImageWrapper.appendChild($instaLink);
+      $socialImageWrapper.appendChild($spotifyLink);
+      $socialImageWrapper.appendChild($youtubeLink);
+      $socialImageWrapper.appendChild($eventsLink);
+    });
+    xhr.send();
   }
 });
