@@ -133,6 +133,7 @@ input::placeholder {
   width: 100%;
   text-align: center;
   font-size: 1.5rem;
+  text-decoration: none;
 }
 
 .title {
@@ -213,9 +214,8 @@ input::placeholder {
     width: 80%;
   }
 
-  .socials-row > a {
-    margin-bottom: 5rem;
-    padding: 2rem 8rem;
+  .socials-link-styling {
+    padding: 1rem;
   }
 
   .artist-name {

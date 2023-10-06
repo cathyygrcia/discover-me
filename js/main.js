@@ -4,7 +4,7 @@ const $artistButton = document.querySelector('.artist');
 const $search = document.querySelector('.search');
 const $homePage = document.querySelector('[data-view = "home"]');
 const $artistInfo = document.querySelector('[data-view = "artist-info"]');
-const $aristNameRow = document.querySelector('.artist-name-row');
+const $artistNameRow = document.querySelector('.artist-name-row');
 const $artistInfoText = document.querySelector('.artist-info-text');
 const $discoverMeText = document.querySelector('.discover-me-text');
 
@@ -250,6 +250,12 @@ $contentRow.addEventListener('click', function (event) {
       const $socialsContainer = document.createElement('div');
       $socialsContainer.setAttribute('class', 'socials-container');
 
+      const $socialsRow = document.createElement('div');
+      $socialsRow.setAttribute('class', 'socials-row');
+
+      const $secondSocialsRow = document.createElement('div');
+      $secondSocialsRow.setAttribute('class', 'socials-row');
+
       const $instaLink = document.createElement('a');
       $instaLink.textContent = 'Instagram';
       $instaLink.setAttribute('class', 'socials-link-styling');
@@ -291,15 +297,18 @@ $contentRow.addEventListener('click', function (event) {
         }
       }
 
-      $aristNameRow.appendChild($testRow);
-      $socialImageWrapper.appendChild($artistName);
+      $artistNameRow.appendChild($testRow);
       $testRow.appendChild($socialImageWrapper);
+      $socialImageWrapper.appendChild($artistName);
       $socialImageWrapper.appendChild($image);
       $socialImageWrapper.appendChild($genreName);
-      $socialImageWrapper.appendChild($instaLink);
-      $socialImageWrapper.appendChild($spotifyLink);
-      $socialImageWrapper.appendChild($youtubeLink);
-      $socialImageWrapper.appendChild($eventsLink);
+      $socialImageWrapper.appendChild($socialsContainer);
+      $socialsContainer.appendChild($socialsRow);
+      $socialsContainer.appendChild($secondSocialsRow);
+      $socialsRow.appendChild($instaLink);
+      $socialsRow.appendChild($spotifyLink);
+      $secondSocialsRow.appendChild($youtubeLink);
+      $secondSocialsRow.appendChild($eventsLink);
     });
     xhr.send();
   }

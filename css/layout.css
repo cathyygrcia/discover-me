@@ -52,6 +52,13 @@
   flex-wrap: wrap;
 }
 
+.socials-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
 .socials-image-wrapper {
   width: 80%;
   display: flex;
@@ -88,11 +95,15 @@
   .socials-container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 150%;
   }
 
   .socials-row {
     justify-content: center;
-    width: 40%;
+    width: 100%;
+    flex-wrap: nowrap;
   }
 
   .socials-image-wrapper {
