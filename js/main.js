@@ -14,6 +14,7 @@ function renderContent(response) {
   for (let i = 0; i < response.length; i++) {
     const $imagesColumnFull = document.createElement('div');
     $imagesColumnFull.setAttribute('class', 'images-column-full');
+
     const id = response[i]._embedded.attractions[0].id;
     $imagesColumnFull.setAttribute('data-artist-id', id);
 
@@ -96,8 +97,10 @@ $genreButton.addEventListener('click', function (event) {
   showSearchBar();
   $genreButton.classList.add('green');
   $artistButton.classList.remove('green');
-  $search.addEventListener('keydown', function (event) {
+  $search.removeEventListener('keydown', searchGenre);
+  $search.addEventListener('keydown', searchGenre);
 
+  function searchGenre(event) {
     if (event.key === 'Enter') {
       const searchValue = event.target.value;
       const xhr = new XMLHttpRequest();
@@ -107,12 +110,70 @@ $genreButton.addEventListener('click', function (event) {
       );
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
+        // console.log(xhr.response);
 
-        renderContent(xhr.response._embedded.events);
+        $contentRow.textContent = '';
+        for (let i = 0; i < xhr.response._embedded.events.length; i++) {
+          const $imagesColumnFull = document.createElement('div');
+          $imagesColumnFull.setAttribute('class', 'images-column-full');
+
+          const id = xhr.response._embedded.events[i].id;
+          // console.log(id);
+          $imagesColumnFull.setAttribute('data-artist-id', id);
+          // console.log(id);
+
+          const $imageWrapper = document.createElement('div');
+          $imageWrapper.setAttribute('class', 'image-wrapper');
+
+          const $image = document.createElement('img');
+
+          const $titleRow = document.createElement('div');
+          $titleRow.setAttribute('class', 'title-row');
+
+          const $titleColumnHalf = document.createElement('div');
+          $titleColumnHalf.setAttribute('class', 'title-column-half');
+
+          const $iconColumnHalf = document.createElement('div');
+          $iconColumnHalf.setAttribute('class', 'title-column-half');
+
+          const $title = document.createElement('p');
+          $title.textContent = xhr.response._embedded.events[i].name;
+          $title.setAttribute('class', 'title');
+
+          const $icon = document.createElement('i');
+          $icon.setAttribute('class', 'far fa-heart');
+
+          const $venue = document.createElement('p');
+          $venue.textContent = xhr.response._embedded.events[i]._embedded.venues[0].name;
+          // console.log($venue);
+
+          const $date = document.createElement('p');
+          const formattedDate = formatDate(xhr.response._embedded.events[i].dates.start.localDate);
+          $date.textContent = `${formattedDate}`;
+
+          for (let j = 0; j < xhr.response._embedded.events[i].images.length; j++) {
+            const currentImage = xhr.response._embedded.events[i].images[j];
+            if (currentImage.ratio === '4_3') {
+              $image.src = currentImage.url;
+              $image.setAttribute('class', 'image');
+              $image.setAttribute('alt', 'artist-image');
+            }
+          }
+          $contentRow.appendChild($imagesColumnFull);
+          $imagesColumnFull.appendChild($imageWrapper);
+          $imageWrapper.appendChild($image);
+          $imagesColumnFull.appendChild($titleRow);
+          $imagesColumnFull.appendChild($venue);
+          $imagesColumnFull.appendChild($date);
+          $titleRow.appendChild($titleColumnHalf);
+          $titleRow.appendChild($iconColumnHalf);
+          $titleColumnHalf.appendChild($title);
+          $iconColumnHalf.appendChild($icon);
+        }
       });
       xhr.send();
     }
-  });
+  }
 });
 
 $artistButton.addEventListener('click', function (event) {
@@ -242,6 +303,7 @@ $contentRow.addEventListener('click', function (event) {
     );
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
+      // console.log(xhr.response);
       $artistNameRow.textContent = '';
       $artistInfoText.classList.remove('hide-text');
       const $artistName = document.createElement('h1');
